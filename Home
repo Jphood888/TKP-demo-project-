@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Julian Project on TimeOn kairos Polytechnic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <style>
+
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Bottom Navigation */
+    .sidebar {
+      width: 100%;
+      background: #111;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      border-top: 1px solid #222;
+      z-index: 1000;
+    }
+
+    .sidebar a {
+      color: #ccc;
+      font-size: 20px;
+      padding: 10px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: #222;
+      color: #e74c3c;
+      border-radius: 10px;
+    }
+
+    .main-content {
+      padding: 20px;
+      padding-bottom: 70px; /* To avoid overlap with bottom bar */
+      flex: 1;
+    }
+
+    .popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #9b59b6, #000);
+      color: #fff;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      z-index: 9999;
+      animation: fadeInOut 7s ease-in-out forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(-20px); }
+      10% { opacity: 1; transform: translateY(0); }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-20px); display: none; }
+    }
+
+    .pay-button {
+      margin-top: 50px;
+      background: transparent;
+      border: 2px solid goldenrod;
+      color: goldenrod;
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .pay-button:hover {
+      background: goldenrod;
+      color: #000;
+    }
+
+    .extra-buttons {
+      margin-top: 20px;
+    }
+
+    .extra-buttons button {
+      background: transparent;
+      border: 1px solid #ccc;
+      color: #ccc;
+      padding: 12px 24px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 16px;
+    }
+
+    .extra-buttons button:hover {
+      background: #e74c3c;
+      color: white;
+      border-color: #e74c3c;
+    }
+
+    .extra-buttons button.offline {
+      background: #333;
+      color: #999;
+      border-color: #555;
+      cursor: not-allowed;
+    }
+
+    .extra-buttons button.offline:hover {
+      background: #333;
+      color: #999;
+      border-color: #555;
+    }
+
+    .offline-message {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .offline-message.show {
+      display: block;
+    }
+
+    /* Promo Slider */
+    .promo-container {
+      width: 100%;
+      overflow: hidden;
+      height: 150px;
+      background: #111;
+      margin-top: 20px;
+    }
+
+    .promo-slider {
+      display: flex;
+      animation: slidePromo 20s linear infinite;
+    }
+
+    .promo-slider img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    @keyframes slidePromo {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-200%); }
+}
+
+.logo-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.logo-heading h1 {
+  font-size: 32px;
+  color: #fff;
+  margin: 0;
+}
+
+.poly-logo {
+  width: 120px;
+  height: auto;
+}
+
+/* TKP Bouncing Animation */
+.tkp-bounce {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+  color: goldenrod;
+  letter-spacing: 2px;
+}
+
+.tkp-bounce span {
+  display: inline-block;
+  animation: bounce 2s infinite;
+}
+
+.tkp-bounce span:nth-child(1) { animation-delay: 0s; }
+.tkp-bounce span:nth-child(2) { animation-delay: 0.3s; }
+.tkp-bounce span:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-15px); }
+  60% { transform: translateY(-10px); }
+}
+
+.offline-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  background: #111;
+  border: 2px dashed #333;
+  border-radius: 10px;
+}
+
+.offline-logo-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 80px;
+  background: #111;
+  border: 2px dashed #333;
+  border-radius: 10px;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Welcome Popup -->
+    <div class="popup">
+      <section>
+        <div inert>Welcome to TimeOn Kairos Polytechnic App</div>
+      </section>
+    </div>
+
+    <section>
+      <div inert>
+        <div class="logo-heading">
+          <h1>TIMEON KAIROS Polytechnic</h1>
+          <img src="https://od.lk/d/NzdfNjEyMzQ0Nzlf/download%20%284%29.png" alt="Logo" class="poly-logo" id="mainLogo">
+        </div>
+      </div>
+    </section>
+
+    <button class="pay-button" id="payButton">
+      <section>
+        <div inert>Pay Fees Now</div>
+      </section>
+    </button>
+
+    <div class="extra-buttons">
+      <button onclick="handleButtonClick('go:timetable')" id="timetableBtn">
+        <section>
+          <div inert>Timetable</div>
+        </section>
+      </button>
+      <button onclick="handleButtonClick('go:result')" id="resultBtn">
+        <section>
+          <div inert>
+            <span id="yearDisplay"></span>
+            Results
+          </div>
+        </section>
+      </button>
+      <button onclick="handleButtonClick('go:payment')" id="paymentBtn">
+        <section>
+          <div inert>Payment Details</div>
+        </section>
+      </button>
+      <button onclick="handleButtonClick('go:department')" id="departmentBtn">
+        <section>
+          <div inert>Available Department</div>
+        </section>
+      </button>
+    </div>
+
+    <div class="offline-message" id="offlineMessage">
+      ⚠️ No network connection. Please check your internet connection and try again.
+    </div>
+
+    <!-- Promo Slider -->
+    <div class="promo-container">
+      <div class="promo-slider" id="promoSlider">
+        <img src="https://od.lk/d/NzdfNjA4NTc2MTZf/Front-View-of-TimeOn-KAIROS-Polytechnic-1-768x414-1-2-600x377.png" alt="tkpimage1" id="promoImg1">
+        <img src="https://od.lk/d/NzdfNjEyNTY0ODZf/ins_link_CDTxZYuAa66_1745264181284.jpg" alt="tkpimage2" id="promoImg2">
+        <img src="https://od.lk/d/NzdfNjEzNTI3ODRf/TKP-LOGO-scaled.webp" alt="tkpimage3" id="promoImg3">
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="sidebar">
+    <a href="go:access" onclick="handleNavClick(event, 'go:access')"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32"><path fill="#b5a2e4" d="M22.86 25.86c-.72.75-1.54 1.42-2.46 1.94L15 31l-5.5-3.2c-3.4-2-5.5-5.6-5.5-9.5V4c0-1.1.9-2 2-2h18c1.1 0 2 .9 2 2v5h-2V4H6v14.3c0 3.2 1.7 6.2 4.5 7.8l4.5 2.7l4.5-2.7c.73-.47 1.41-.99 2-1.6zM28 12H18v2h10zm0 8H18v2h10zm2-4H20v2h10z" stroke-width="1" stroke="#b5a2e4"></path></svg></a>
+    <a href="go:payfees" onclick="handleNavClick(event, 'go:payfees')"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 512 512"><path fill="#b5a2e4" d="M327.027 65.816L229.79 128.23l9.856 5.397l86.51-55.53l146.735 83.116l-84.165 54.023l4.1 2.244v6.848l65.923-42.316l13.836 7.838l-79.76 51.195v11.723l64.633-41.487l15.127 8.57l-79.76 51.195v11.723l64.633-41.487l15.127 8.57l-79.76 51.195v11.723l100.033-64.21l-24.828-14.062l24.827-15.937l-24.828-14.064l24.827-15.937l-23.537-13.333l23.842-15.305zm31.067 44.74c-21.038 10.556-49.06 12.342-68.79 4.383l-38.57 24.757l126.903 69.47l36.582-23.48c-14.41-11.376-13.21-28.35 2.942-41.67zM227.504 147.5l-70.688 46.094l135.61 78.066l1.33-.85c2.5-1.61 6.03-3.89 10.242-6.613c8.42-5.443 19.563-12.66 30.674-19.86c16.002-10.37 24.248-15.72 31.916-20.694zm115.467 1.17a8.583 14.437 82.068 0 1 .003 0a8.583 14.437 82.068 0 1 8.32 1.945a8.583 14.437 82.068 0 1-.87 12.282a8.583 14.437 82.068 0 1-20.273 1.29a8.583 14.437 82.068 0 1 .87-12.28a8.583 14.437 82.068 0 1 11.95-3.237m-218.423 47.115L19.143 263.44l23.537 13.333l-23.842 15.305l24.828 14.063l-24.828 15.938l24.828 14.063l-24.828 15.938l166.135 94.106L285.277 381.8v-11.72l-99.433 63.824L39.11 350.787l14.255-9.15l131.608 74.547L285.277 351.8v-11.72l-99.433 63.824L39.11 320.787l14.255-9.15l131.608 74.547L285.277 321.8v-11.72l-99.433 63.824L39.11 290.787l13.27-8.52l132.9 75.28l99.997-64.188v-5.05l-5.48-3.154l-93.65 60.11l-146.73-83.116l94.76-60.824l-9.63-5.543zm20.46 11.78l-46.92 30.115c14.41 11.374 13.21 28.348-2.942 41.67l59.068 33.46c21.037-10.557 49.057-12.342 68.787-4.384l45.965-29.504l-123.96-71.358zm229.817 32.19c-8.044 5.217-15.138 9.822-30.363 19.688a36222 36222 0 0 1-30.69 19.873c-4.217 2.725-7.755 5.01-10.278 6.632c-.09.06-.127.08-.215.137v85.924l71.547-48.088zm-200.99 17.48a8.583 14.437 82.068 0 1 8.32 1.947a8.583 14.437 82.068 0 1-.87 12.28a8.583 14.437 82.068 0 1-20.27 1.29a8.583 14.437 82.068 0 1 .87-12.28a8.583 14.437 82.068 0 1 11.95-3.236z" stroke-width="13" stroke="#b5a2e4"></path></svg></a>
+    <a href="go:users" onclick="handleNavClick(event, 'go:users')"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#b5a2e4" d="M10.27 12h3.46a1.5 1.5 0 0 0 1.48-1.75l-.3-1.79a2.951 2.951 0 0 0-5.82.01l-.3 1.79c-.15.91.55 1.74 1.48 1.74m-8.61-.89c-.13.26-.18.57-.1.88c.16.69.76 1.03 1.53 1h1.95c.83 0 1.51-.58 1.51-1.29c0-.14-.03-.27-.07-.4c-.01-.03-.01-.05.01-.08c.09-.16.14-.34.14-.53c0-.31-.14-.6-.36-.82c-.03-.03-.03-.06-.02-.1c.07-.2.07-.43.01-.65a1.12 1.12 0 0 0-.99-.74a.1.1 0 0 1-.07-.03C5.03 8.14 4.72 8 4.37 8c-.3 0-.57.1-.75.26c-.03.03-.06.03-.09.02a1.24 1.24 0 0 0-1.7 1.03q0 .03-.03.06c-.29.26-.46.65-.41 1.05c.03.22.12.43.25.6c.03.02.03.06.02.09m14.58 2.54c-1.17-.52-2.61-.9-4.24-.9s-3.07.39-4.24.9A2.99 2.99 0 0 0 6 16.39V17c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-.61c0-1.18-.68-2.26-1.76-2.74m-15.02.93A2.01 2.01 0 0 0 0 16.43V17c0 .55.45 1 1 1h3.5v-1.61c0-.83.23-1.61.63-2.29c-.37-.06-.74-.1-1.13-.1c-.99 0-1.93.21-2.78.58m21.56 0A6.95 6.95 0 0 0 20 14c-.39 0-.76.04-1.13.1c.4.68.63 1.46.63 2.29V18H23c.55 0 1-.45 1-1v-.57c0-.81-.48-1.53-1.22-1.85M22 11v-.5c0-1.1-.9-2-2-2h-2c-.42 0-.65.48-.39.81l.7.63c-.19.31-.31.67-.31 1.06c0 1.1.9 2 2 2s2-.9 2-2" stroke-width="0.5" stroke="#b5a2e4"></path></svg></a>
+    <a href="go:board" onclick="handleNavClick(event, 'go:board')"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"></path><path fill="#b5a2e4" d="M14 3a2 2 0 0 1 1.995 1.85L16 5v1.055l3.641.976a2 2 0 0 1 1.448 2.304l-.034.145l-2.588 9.66a2 2 0 0 1-2.304 1.447l-.145-.033l-.587-.157c-.322.33-.759.55-1.246.595L14 21H5a2 2 0 0 1-1.995-1.85L3 19V5a2 2 0 0 1 1.85-1.995L5 3zm0 2H5v14h9zm2 3.126v10.353l.535.143l2.589-9.66L16 8.127Z" stroke-width="0.5" stroke="#b5a2e4"></path></g></svg></a>
+    <a href="go:support" onclick="handleNavClick(event, 'go:support')"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#b5a2e4" d="M21 12.22C21 6.73 16.74 3 12 3c-4.69 0-9 3.65-9 9.28c-.6.34-1 .98-1 1.72v2c0 1.1.9 2 2 2h1v-6.1c0-3.87 3.13-7 7-7s7 3.13 7 7V19h-8v2h8c1.1 0 2-.9 2-2v-1.22c.59-.31 1-.92 1-1.64v-2.3c0-.7-.41-1.31-1-1.62" stroke-width="0.5" stroke="#b5a2e4"></path><circle cx="9" cy="13" r="1" fill="#b5a2e4" stroke-width="0.5" stroke="#b5a2e4"></circle><circle cx="15" cy="13" r="1" fill="#b5a2e4" stroke-width="0.5" stroke="#b5a2e4"></circle><path fill="#b5a2e4" d="M18 11.03A6.04 6.04 0 0 0 12.05 6c-3.03 0-6.29 2.51-6.03 6.45a8.07 8.07 0 0 0 4.86-5.89c1.31 2.63 4 4.44 7.12 4.47" stroke-width="0.5" stroke="#b5a2e4"></path></svg></a>
+    <a href="go:about" onclick="handleNavClick(event, 'go:about')"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#b5a2e4" fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11s11-4.925 11-11S18.075 1 12 1m-.5 5a1 1 0 1 0 0 2h.5a1 1 0 1 0 0-2zM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1z" clip-rule="evenodd" stroke-width="0.5" stroke="#b5a2e4"></path></svg></a>
+  </div>
+
+<script>
+  const tips = [
+    { text: "How to check your results", link: "go:inforesult" },
+    { text: "How to pay for school fees", link: "go:infopay" },
+    { text: "How to check timetable", link: "go:infott" },
+    { text: "How to create better results", link: "go:bresult" }
+  ];
+
+  let index = 0;
+  let isOnline = navigator.onLine;
+
+  // Network status detection
+  function checkNetworkStatus() {
+    isOnline = navigator.onLine;
+    updateUI();
+  }
+
+  function updateUI() {
+    const buttons = document.querySelectorAll('.extra-buttons button');
+    const offlineMessage = document.getElementById('offlineMessage');
+    const payButton = document.getElementById('payButton');
+    
+    if (!isOnline) {
+      buttons.forEach(button => {
+        button.classList.add('offline');
+        button.disabled = true;
+      });
+      payButton.classList.add('offline');
+      payButton.disabled = true;
+      offlineMessage.classList.add('show');
+      
+      // Replace images with TKP bouncing animation
+      replaceImagesWithTKP();
+    } else {
+      buttons.forEach(button => {
+        button.classList.remove('offline');
+        button.disabled = false;
+      });
+      payButton.classList.remove('offline');
+      payButton.disabled = false;
+      offlineMessage.classList.remove('show');
+      
+      // Restore original images
+      restoreImages();
+    }
+  }
+
+  function replaceImagesWithTKP() {
+    // Replace main logo
+    const mainLogo = document.getElementById('mainLogo');
+    if (mainLogo && !mainLogo.dataset.replaced) {
+      mainLogo.style.display = 'none';
+      const tkpDiv = document.createElement('div');
+      tkpDiv.className = 'tkp-bounce offline-logo-placeholder';
+      tkpDiv.innerHTML = '<span>T</span><span>K</span><span>P</span>';
+      tkpDiv.id = 'tkpLogo';
+      mainLogo.parentNode.insertBefore(tkpDiv, mainLogo.nextSibling);
+      mainLogo.dataset.replaced = 'true';
+    }
+
+    // Replace promo slider images
+    const promoSlider = document.getElementById('promoSlider');
+    if (promoSlider && !promoSlider.dataset.replaced) {
+      promoSlider.style.display = 'none';
+      const tkpDiv = document.createElement('div');
+      tkpDiv.className = 'tkp-bounce offline-placeholder';
+      tkpDiv.innerHTML = '<span>T</span><span>K</span><span>P</span>';
+      tkpDiv.id = 'tkpPromo';
+      promoSlider.parentNode.insertBefore(tkpDiv, promoSlider.nextSibling);
+      promoSlider.dataset.replaced = 'true';
+    }
+  }
+
+  function restoreImages() {
+    // Restore main logo
+    const mainLogo = document.getElementById('mainLogo');
+    const tkpLogo = document.getElementById('tkpLogo');
+    if (mainLogo && tkpLogo) {
+      mainLogo.style.display = 'block';
+      tkpLogo.remove();
+      delete mainLogo.dataset.replaced;
+    }
+
+    // Restore promo slider
+    const promoSlider = document.getElementById('promoSlider');
+    const tkpPromo = document.getElementById('tkpPromo');
+    if (promoSlider && tkpPromo) {
+      promoSlider.style.display = 'flex';
+      tkpPromo.remove();
+      delete promoSlider.dataset.replaced;
+    }
+  }
+
+  function handleButtonClick(url) {
+    if (!isOnline) {
+      document.getElementById('offlineMessage').classList.add('show');
+      setTimeout(() => {
+        document.getElementById('offlineMessage').classList.remove('show');
+      }, 3000);
+      return;
+    }
+    location.href = url;
+  }
+
+  function handleNavClick(event, url) {
+    if (!isOnline) {
+      event.preventDefault();
+      document.getElementById('offlineMessage').classList.add('show');
+      setTimeout(() => {
+        document.getElementById('offlineMessage').classList.remove('show');
+      }, 3000);
+      return;
+    }
+  }
+
+  function showTip() {
+    if (!isOnline) return; // Don't show tips when offline
+    
+    const tip = tips[index];
+    const tipDiv = document.createElement('div');
+    tipDiv.className = 'tip-popup';
+    tipDiv.innerHTML = `
+      <i class="fas fa-lightbulb"></i>
+      <span>${tip.text}</span>
+    `;
+    tipDiv.onclick = () => {
+      if (isOnline) {
+        location.href = tip.link;
+      }
+    };
+    document.body.appendChild(tipDiv);
+
+    setTimeout(() => {
+      tipDiv.remove();
+    }, 5000);
+
+    index = (index + 1) % tips.length;
+  }
+
+  // Event listeners for network status
+  window.addEventListener('online', checkNetworkStatus);
+  window.addEventListener('offline', checkNetworkStatus);
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    checkNetworkStatus();
+    document.getElementById("yearDisplay").textContent = new Date().getFullYear();
+    
+    if (isOnline) {
+      setInterval(showTip, 8000);
+    }
+  });
+
+  // Handle image load errors
+  document.addEventListener('error', (e) => {
+    if (e.target.tagName === 'IMG') {
+      const img = e.target;
+      if (!img.dataset.errorHandled) {
+        img.style.display = 'none';
+        const tkpDiv = document.createElement('div');
+        tkpDiv.className = 'tkp-bounce offline-placeholder';
+        tkpDiv.innerHTML = '<span>T</span><span>K</span><span>P</span>';
+        img.parentNode.insertBefore(tkpDiv, img.nextSibling);
+        img.dataset.errorHandled = 'true';
+      }
+    }
+  }, true);
+</script>
+
+<style>
+  .tip-popup {
+    position: fixed;
+    bottom: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e1e1e;
+    border: 1px solid goldenrod;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    z-index: 9999</style>
+</Body>
+</HTML>
