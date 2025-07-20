@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Departmental Hub | TKP App</title>
+  <style>
+
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom right, #eaf6ff, #d8e8ff);
+    color: #222;
+    margin: 0;
+    padding: 1rem;
+  }
+  .header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #003366;
+  }
+  .watermark {
+    position: fixed;
+    font-size: 0.7rem;
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .department-section {
+    background: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+  }
+  .dept-title {
+    font-size: 1.5rem;
+    color: #0055aa;
+    margin-bottom: 0.5rem;
+  }
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .links a, .category-buttons button {
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background: #0066cc;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s ease;
+    cursor: pointer;
+  }
+  .links a:hover, .category-buttons button:hover {
+    background: #004a99;
+  }
+  .category-buttons {
+    margin-top: 0.5rem;
+    display: none;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .category-buttons button:nth-child(2) {
+    background: #cc3333;
+  }
+  .category-buttons button:nth-child(3) {
+    background: #22aa22;
+  }
+</style>
+
+</head>
+<body>
+
+  <div class="header">Welcome to the Departmental Hub</div>
+
+  <!-- Department Template -->
+  <div class="department-section">
+    <div class="dept-title">Computer Science</div>
+    <div class="links">
+      <a onclick="toggleOptions('cs')">Enter Timetable</a>
+      <div class="category-buttons" id="cs">
+        <button onclick="location.href='go:timetable'">Timetable</button>
+        <button onclick="location.href='go:result'">Results Board</button>
+        <button onclick="location.href='go:payment'">Departmental Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="department-section">
+    <div class="dept-title">Mass Communication</div>
+    <div class="links">
+      <a onclick="toggleOptions('masscom')">Enter Timetable</a>
+      <div class="category-buttons" id="masscom">
+        <button onclick="location.href='go:timetable'">Timetable</button>
+        <button onclick="location.href='go:result'">Results Board</button>
+        <button onclick="location.href='go:payment'">Departmental Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="department-section">
+    <div class="dept-title">Business Administration</div>
+    <div class="links">
+      <a onclick="toggleOptions('bizadmin')">Enter Timetable</a>
+      <div class="category-buttons" id="bizadmin">
+        <button onclick="location.href='go:timetable'">Timetable</button>
+        <button onclick="location.href='go:result'">Results Board</button>
+        <button onclick="location.href='go:payment'">Departmental Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="department-section">
+    <div class="dept-title">Public Administration</div>
+    <div class="links">
+      <a onclick="toggleOptions('pubadmin')">Enter Timetable</a>
+      <div class="category-buttons" id="pubadmin">
+        <button onclick="location.href='go:timetable'">Timetable</button>
+        <button onclick="window.location.href='go:result'">Results Board</button>
+        <button onclick="location.href='go:payment'">Departmental Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="department-section">
+    <div class="dept-title">Science Laboratory Tech</div>
+    <div class="links">
+      <a onclick="toggleOptions('sltech')">Enter Timetable</a>
+      <div class="category-buttons" id="sltech">
+        <button onclick="location.href='go:timetable'">Timetable</button>
+        <button onclick="location.href='go:result'">Results Board</button>
+        <button onclick="location.href='go:payment'">Departmental Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Departments -->
+  <div class="department-section">
+    <div class="dept-title">Electrical Engineering</div>
+    <div class="links">
+      <a onclick="toggleOptions('electeng')">Enter Timetable</a>
+      <div class="category-buttons" id="electeng">
+        <button onclick="location.href='go:timetable'">Timetable</button>
+        <button onclick="location.href='go:result'">Results Board</button>
+        <button onclick="location.href='go:payment'">Departmental Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="department-section">
+    <div class="dept-title">Computer Engineering</div>
+    <div class="links">
+      <a onclick="toggleOptions('compeng')">Enter Timetable</a>
+      <div class="category-buttons" id="compeng">
+        <button onclick="location.href='go:timetable'">Timetable</button>
+        <button onclick="location.href='go:result'">Results Board</button>
+        <button onclick="location.href='go:payment'">Departmental Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleOptions(id) {
+      const allSections = document.querySelectorAll('.category-buttons');
+      allSections.forEach(section => {
+        if (section.id !== id) section.style.display = 'none';
+      });
+      const el = document.getElementById(id);
+      el.style.display = (el.style.display === 'flex') ? 'none' : 'flex';
+    }
+  </script>
+
+  <div class="watermark">TKP App by Julian Pearse</div>
+  <div class="watermark" style="left: 10px; top: 10px;">TKP App by Julian Pearse</div>
+
+</body>
+</html>
