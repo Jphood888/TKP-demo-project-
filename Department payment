@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TIMEON KAIROS Polytechnic Department Payments</title>
+  <style>
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: black;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    main {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    select {
+      padding: 12px 18px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      color: #333;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    @media (max-width: 600px) {
+      select {
+        width: 90%;
+      }
+
+      iframe {
+        height: 400px;
+      }
+    }
+
+    #passwordPrompt {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #passwordPrompt div {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    #passwordPrompt input {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 80%;
+    }
+
+    #passwordPrompt button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    #notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #e91e63;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      font-size: 14px;
+      display: none;
+      z-index: 99999;
+    }
+
+    footer {
+      text-align: center;
+      padding: 11px;
+      background: #000;
+      font-size: 10px;
+      color: #aaa;
+    }
+
+    footer a {
+      color: #20b2aa;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #ff9800;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>TIMEON KAIROS Polytechnic Department Payments For Admins</h2>
+    <p style="font-size: 14px; margin-top: 5px;">View fees, exams, and departmental requirements</p>
+  </header>
+
+  <main>
+    <label for="departmentSelect">Select your department:</label>
+    <select id="departmentSelect" onchange="loadPaymentTable()" disabled>
+      <option value="">-- Select Department --</option>
+      <option value="slt">Science Laboratory Technician (SLT)</option>
+      <option value="comsci">Computer Science (CS)</option>
+      <option value="comeng">Computer Engineering (CE)</option>
+      <option value="masscom">Mass Communication(MC)</option>
+      <option value="busadmin">Business Administration(BA)</option>
+      <option value="pubadmin">Public Administration(PA)</option>
+      <option value="electelect">Electrical Engineering (EE)</option>
+    </select>
+
+    <iframe id="paymentFrame" src=""></iframe>
+  </main>
+
+  <div id="passwordPrompt">
+    <div>
+      <h3>Enter Access Code</h3>
+      <input type="password" id="accessKeyInput" placeholder="Enter code">
+      <br>
+      <button onclick="verifyAccessKey()">Submit</button>
+    </div>
+  </div>
+
+  <div id="notification"></div>
+
+  <footer>
+    <section>© <span id="yearDisplay"></span> TKP Payments. Crafted by <a href="go:creatorab">Julian Prosper Pearse</a></section>
+  </footer>
+
+  <script>
+    const paymentLinks = {
+      slt: "https://docs.google.com/spreadsheets/d/e/2PACX-1vPAY_SLT_LINK/pubhtml?widget=true&headers=false",
+      comsci: "https://docs.google.com/spreadsheets/d/e/2PACX-1vPAY_CS_LINK/pubhtml?widget=true&headers=false",
+      comeng: "https://docs.google.com/spreadsheets/d/e/2PACX-1vPAY_CE_LINK/pubhtml?widget=true&headers=false",
+      masscom: "https://docs.google.com/spreadsheets/d/e/2PACX-1vPAY_MASSCOM_LINK/pubhtml?widget=true&headers=false",
+      busadmin: "https://docs.google.com/spreadsheets/d/e/2PACX-1vPAY_BUSADMIN_LINK/pubhtml?widget=true&headers=false",
+      pubadmin: "https://docs.google.com/spreadsheets/d/e/2PACX-1vPAY_PUBADMIN_LINK/pubhtml?widget=true&headers=false",
+      electelect: "https://docs.google.com/spreadsheets/d/e/2PACX-1vPAY_EE_LINK/pubhtml?widget=true&headers=false"
+    };
+
+    const accessKeys = {
+      SLTPAY: "slt",
+      CSPAY: "comsci",
+      CEPAY: "comeng",
+      MCPAY: "masscom",
+      BAPAY: "busadmin",
+      PAPAY: "pubadmin",
+      EEPAY: "electelect"
+    };
+
+    function verifyAccessKey() {
+      const inputKey = document.getElementById("accessKeyInput").value.trim().toUpperCase();
+      const department = accessKeys[inputKey];
+
+      if (department) {
+        document.getElementById("passwordPrompt").style.display = "none";
+        const select = document.getElementById("departmentSelect");
+        select.value = department;
+        select.disabled = true;
+        loadPaymentTable();
+      } else {
+        showNotification("Invalid access key. Please try again.");
+      }
+    }
+
+    function loadPaymentTable() {
+      const dept = document.getElementById("departmentSelect").value;
+      const frame = document.getElementById("paymentFrame");
+
+      if (paymentLinks[dept]) {
+        frame.src = paymentLinks[dept];
+      } else {
+        frame.src = "";
+      }
+    }
+
+    function showNotification(message) {
+      const notification = document.getElementById("notification");
+      notification.textContent = message;
+      notification.style.display = "block";
+
+      setTimeout(() => {
+        notification.style.display = "none";
+      }, 4000);
+    }
+
+    document.getElementById("yearDisplay").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
