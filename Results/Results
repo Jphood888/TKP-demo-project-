@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #f0f4ff, #dfe9f3);
+      padding: 30px;
+      color: #333;
+    }
+
+    .panel {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+      padding: 25px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    h2, h3 {
+      color: #2c3e50;
+    }
+
+    input, select {
+      padding: 12px;
+      width: 100%;
+      margin: 10px 0;
+      border: 1px solid #cfd8dc;
+      border-radius: 6px;
+      background: #f9fbfc;
+    }
+
+    button {
+      padding: 12px 25px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #125ea9;
+    }
+
+    .result-box {
+      background: #e3f2fd;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .grade-box {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .grade-box.green { color: green; }
+    .grade-box.red { color: red; }
+    .grade-box.default { color: #333; }
+
+    .popup {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #323232;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      z-index: 1000;
+      display: none;
+    }
+
+    .watermarked-result {
+      position: relative;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .watermarked-result::before {
+      content: "TKP STUDENT RESULTS";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 30px;
+      color: rgba(0, 153, 255, 0.1);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .recent-ids {
+      background: #fff7cc;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+
+    .show-password {
+      margin: 5px 0 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #loader {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #1976d2;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <Section> <div inert><h2>Result Management Portal</h2></section>
+
+  <label for="userType">  <Section> <div inert>Select Panel:</section></label>
+  <select id="userType" onchange="togglePanel()">
+    <option value="student">Student</option>
+    <option value="admin">Admin</option>
+  </select>
+
+  <div id="studentPanel" class="panel">
+      <Section> <div inert><h3>Check Your Result</h3></section>
+    <input type="text" id="studentId" placeholder="Enter Student ID">
+    <select id="semester">
+      <option value="">  <Section> <div inert>Select Semester</section></option>
+      <option value="First Semester">  <Section> <div inert>First Semester</section></option>
+      <option value="Second Semester">  <Section> <div inert>Second Semester</section></option>
+    </select>
+    <select id="ndLevel">
+      <option value="">  <Section> <div inert>Select ND Level</section></option>
+      <option value="ND1">  <Section> <div inert>ND1</section></option>
+      <option value="ND2">  <Section> <div inert>ND2</section></option>
+    </select>
+    <button onclick="getResult()">  <Section> <div inert>Get Result</section></button>
+    <div id="loader"><div class="spinner"></div></div>
+     <Section> <div inert> <div id="studentResult"></div></section>
+  </div>
+
+  <div id="adminLogin" class="panel">
+    <h3>Admin Login</h3>
+    <input type="password" id="adminPassword" placeholder="Enter Admin Password">
+    <div class="show-password"><input type="checkbox" onclick="togglePassword()"> Show Password</div>
+    <button onclick="validateAdmin()">Enter</button>
+  </div>
+
+  <div id="adminPanel" class="panel">
+    <h3>Admin Panel - Upload/Edit Results</h3>
+    <input type="text" id="adminId" placeholder="Student ID">
+    <input type="text" id="adminName" placeholder="Student Name">
+    <input type="text" id="adminResult" placeholder="Result (e.g., ENG101-75, MTH201-60)">
+    <select id="adminSemester">
+      <option value="">Select Semester</option>
+      <option value="First Semester">First Semester</option>
+      <option value="Second Semester">Second Semester</option>
+    </select>
+    <select id="adminLevel">
+      <option value="">Select ND Level</option>
+      <option value="ND1">ND1</option>
+      <option value="ND2">ND2</option>
+    </select>
+    <button onclick="postResult()">Save/Update Result</button>
+    <div id="loader"><div class="spinner"></div></div>
+    <div id="adminStatus"></div>
+    <div class="recent-ids" id="recentIDs"></div>
+  </div>
+
+  <div id="popup" class="popup"></div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyYah7zejsh0-4e9UJsTrsg_S3_Pypeed3u_LER9-0UpVQVUldLkswSkPyjn8xEpoM/exec";
+    const ADMIN_PASSWORD = "TKPRESULTSOFFICIAL";
+
+    function togglePanel() {
+      const type = document.getElementById("userType").value;
+      document.getElementById("studentPanel").style.display = type === "student" ? "block" : "none";
+      document.getElementById("adminLogin").style.display = type === "admin" ? "block" : "none";
+      document.getElementById("adminPanel").style.display = "none";
+    }
+
+    function togglePassword() {
+      const passField = document.getElementById("adminPassword");
+      passField.type = passField.type === "password" ? "text" : "password";
+    }
+
+    function validateAdmin() {
+      const pass = document.getElementById("adminPassword").value.trim();
+      if (pass === ADMIN_PASSWORD) {
+        document.getElementById("adminLogin").style.display = "none";
+        document.getElementById("adminPanel").style.display = "block";
+        showPopup("Welcome Admin!");
+      } else {
+        showPopup("Wrong password!");
+      }
+    }
+
+    function showPopup(message) {
+      const popup = document.getElementById("popup");
+      popup.textContent = message;
+      popup.style.display = "block";
+      setTimeout(() => popup.style.display = "none", 3000);
+    }
+
+    function getGrade(score) {
+      if (score >= 70) return 'A';
+      if (score >= 60) return 'B';
+      if (score >= 50) return 'C';
+      if (score >= 45) return 'D';
+      if (score >= 40) return 'E';
+      return 'F';
+    }
+
+    function getResult() {
+      const id = document.getElementById("studentId").value.trim();
+      const semester = document.getElementById("semester").value;
+      const ndLevel = document.getElementById("ndLevel").value;
+
+      if (!id || !semester || !ndLevel) return showPopup("Please fill in all fields");
+
+      document.getElementById("loader").style.display = "block";
+
+      fetch(`${scriptURL}?id=${id}&semester=${semester}&ndLevel=${ndLevel}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            document.getElementById("studentResult").innerHTML = `<div class="result-box">Error: ${data.error}</div>`;
+          } else {
+            const resultHTML = data.result.split(',').map(entry => {
+              const [course, scoreRaw] = entry.trim().split('-');
+              const score = parseInt(scoreRaw);
+              const grade = getGrade(score);
+              const colorClass = grade === 'A' ? 'green' : (grade === 'F' ? 'red' : 'default');
+              return `<div class="grade-box ${colorClass}">${course.trim()} - ${score} (${grade})</div>`;
+            }).join('');
+
+            document.getElementById("studentResult").innerHTML = `
+              <div class="watermarked-result">
+                <h2 style="text-align:center;">TIMEON KAIROS POLYTECHNIC RESULTS</h2>
+                <p><strong>Name:</strong> ${data.name}</p>
+                <p><strong>ID:</strong> ${id}</p>
+                <p><strong>Semester:</strong> ${semester}</p>
+                <p><strong>Level:</strong> ${ndLevel}</p>
+                <hr>${resultHTML}
+                <p style="margin-top:20px;"><em>Note: 🚫 If manipulated one will face the consequences! To check your GPA and Units go to the departmental result in the app.</em></p>
+              </div>`;
+          }
+        })
+        .catch(() => {
+          document.getElementById("studentResult").innerHTML = `<div class="result-box">Error fetching result.</div>`;
+        })
+        .finally(() => {
+          document.getElementById("loader").style.display = "none";
+        });
+    }
+
+    function postResult() {
+      const id = document.getElementById("adminId").value.trim();
+      const name = document.getElementById("adminName").value.trim();
+      const result = document.getElementById("adminResult").value.trim();
+      const semester = document.getElementById("adminSemester").value;
+      const level = document.getElementById("adminLevel").value;
+
+      if (!id || !name || !result || !semester || !level) return showPopup("Please fill in all fields");
+
+      document.getElementById("loader").style.display = "block";
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: new URLSearchParams({
+          id, name, result, semester, ndLevel: level
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("adminStatus").innerText = data;
+        const recentIDs = document.getElementById("recentIDs");
+        const entry = document.createElement("div");
+        entry.textContent = `${id} - ${name}`;
+        recentIDs.prepend(entry);
+      })
+      .catch(() => {
+        showPopup("Error posting result.");
+      })
+      .finally(() => {
+        document.getElementById("loader").style.display = "none";
+      });
+    }
+
+    window.onload = togglePanel;
+  </script>
+
+
+
+<script>
+  function getResult() {
+    const id = document.getElementById("studentId").value.trim();
+    const semester = document.getElementById("semester").value;
+    const ndLevel = document.getElementById("ndLevel").value;
+
+    if (!id || !semester || !ndLevel) return showPopup("Please fill in all fields");
+
+    document.getElementById("loader").style.display = "block";
+
+    fetch(`${scriptURL}?id=${id}&semester=${semester}&ndLevel=${ndLevel}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("loader").style.display = "none";
+        if (data.error) {
+          showPopup("Error: " + data.error);
+        } else {
+          const resultHTML = data.result.split(',').map(entry => {
+            const [course, scoreRaw] = entry.trim().split('-');
+            const score = parseInt(scoreRaw);
+            const grade = getGrade(score);
+            const colorClass = grade === 'A' ? 'green' : (grade === 'F' ? 'red' : 'default');
+            return `<div class="grade-box ${colorClass}">${course.trim()} - ${score} (${grade})</div>`;
+          }).join('');
+
+          const newWindow = window.open();
+          newWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <title>Result Page</title>
+              <style>
+                body {
+                  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                  background: #f4f6fb;
+                  padding: 30px;
+                  color: #333;
+                }
+                .watermarked-result {
+                  position: relative;
+                  background: white;
+                  padding: 30px;
+                  border-radius: 10px;
+                  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                  overflow: hidden;
+                }
+                .watermarked-result::before {
+                  content: "TKP STUDENT RESULTS";
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%) rotate(-30deg);
+                  font-size: 25px;
+                  color: rgba(0, 153, 255, 0.1);
+                  white-space: nowrap;
+                  pointer-events: none;
+                }
+                .grade-box {
+                  font-weight: bold;
+                  margin: 10px 0;
+                }
+                .grade-box.green { color: green; }
+                .grade-box.red { color: red; }
+                .grade-box.default { color: #333; }
+              </style>
+            </head>
+            <body>
+              <div class="watermarked-result">
+                <h2 style="text-align:center;">TIMEON KAIROS POLYTECHNIC RESULTS</h2>
+                <p><strong>Name:</strong> ${data.name}</p>
+                <p><strong>ID:</strong> ${id}</p>
+                <p><strong>Semester:</strong> ${semester}</p>
+                <p><strong>Level:</strong> ${ndLevel}</p>
+                <hr>${resultHTML}
+                <p style="margin-top:20px;"><em>Note: 🚫 If manipulated or duplicated, it will be invalid.</em></p>
+              </div>
+            </body>
+            </html>
+          `);
+          newWindow.document.close();
+        }
+      });
+  }
+</script>
+
+</body>
+</html>
