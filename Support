@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TIMEON KAIROS Support</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* [your same CSS here unchanged] */
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container { max-width: 800px; margin: auto; padding: 20px; }
+    h1 { text-align: center; margin-bottom: 30px; }
+    .faq, .contact-form { background: #111; padding: 20px; border-radius: 6px; margin-bottom: 20px; }
+    .faq h3 { margin: 0; cursor: pointer; display: flex; align-items: center; }
+    .faq h3 i { margin-right: 10px; }
+    .faq p { display: none; margin-top: 10px; color: #ccc; font-size: 15px; line-height: 1.5; }
+    .contact-form h2 { margin-bottom: 15px; }
+    input, textarea { width: 100%; background: #222; color: #fff; border: none; padding: 10px; margin: 10px 0; border-radius: 4px; }
+    button { background: #444; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; transition: 0.3s; }
+    button:hover:enabled { background: #555; }
+    button:disabled { background: #333; cursor: not-allowed; }
+    #contactTimer { font-size: 11px; color: gray; margin-top: 5px; }
+    #cooldownTimer { font-size: 14px; font-weight: bold; color: red; margin-top: 10px; }
+    #notification { font-size: 13px; background: #222; color: orange; padding: 10px; border-radius: 5px; margin-top: 10px; display: none; }
+    .loader { display: none; margin-top: 10px; text-align: center; }
+    .loader i { font-size: 24px; color: lightblue; animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .success-message { display: none; text-align: center; padding: 40px 20px; background-color: #111; border-radius: 10px; color: lightgreen; font-size: 18px; }
+    .watermark { position: fixed; font-size: 0.7rem; opacity: 0.2; pointer-events: none; z-index: 0; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1><i class="fas fa-headset"></i> TIMEON KAIROS Support</h1>
+
+    <div class="faq" onclick="toggleFAQ(this)">
+      <h3><i class="fas fa-clock"></i> Response Time</h3>
+      <p>We respond within 2 working days (Mon–Fri). For urgent issues, add "URGENT" to your subject.</p>
+    </div>
+
+    <div class="faq" onclick="toggleFAQ(this)">
+      <h3><i class="fas fa-info-circle"></i> What We Support</h3>
+      <p>We handle password, access keys, payment, registration, results, and other portal issues. Kindly allow 2 working days for a reply.</p>
+    </div>
+
+    <div class="contact-form" id="formSection">
+      <h2><i class="fas fa-envelope"></i> Contact Us</h2>
+      <form id="supportForm">
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+        <textarea id="message" name="message" rows="5" placeholder="Type your message or complaint here..." required></textarea>
+        <button type="submit" id="sendBtn"><i class="fas fa-paper-plane"></i> Send Message</button>
+        <div id="contactTimer">You can send a message to us below.</div>
+        <div id="cooldownTimer"></div>
+        <div id="notification"></div>
+        <div class="loader" id="loader"><i class="fas fa-spinner"></i> Sending...</div>
+      </form>
+    </div>
+
+    <div class="success-message" id="successMessage">
+      <i class="fas fa-check-circle"></i><br><br>
+      Your message was sent successfully! We will get back to you shortly.
+    </div>
+  </div>
+
+  <div class="watermark">TKP App by Julian Pearse</div>
+  <div class="watermark" style="left: 10px; top: 10px;">TKP App by Julian Pearse</div>
+
+<script>
+  emailjs.init("V7pFIPOBWfGovihl1"); // Your public key
+
+  const form = document.getElementById("supportForm");
+  const sendBtn = document.getElementById("sendBtn");
+  const loader = document.getElementById("loader");
+  const successMessage = document.getElementById("successMessage");
+  const formSection = document.getElementById("formSection");
+  const cooldownTimer = document.getElementById("cooldownTimer");
+  const notification = document.getElementById("notification");
+
+  const TWO_DAYS = 2 * 24 * 60 * 60 * 1000;
+
+  function toggleFAQ(el) {
+    const p = el.querySelector("p");
+    const allP = document.querySelectorAll(".faq p");
+    allP.forEach(item => { if (item !== p) item.style.display = "none"; });
+    p.style.display = (p.style.display === "block") ? "none" : "block";
+  }
+
+  function formatTime(ms) {
+    let total = Math.floor(ms / 1000);
+    const h = String(Math.floor(total / 3600)).padStart(2, '0');
+    const m = String(Math.floor((total % 3600) / 60)).padStart(2, '0');
+    const s = String(total % 60).padStart(2, '0');
+    return `${h}:${m}:${s}`;
+  }
+
+  function updateCooldown() {
+    const lastSent = localStorage.getItem("lastSupportSent");
+    if (!lastSent) return;
+
+    const now = Date.now();
+    const diff = now - Number(lastSent);
+
+    if (diff < TWO_DAYS) {
+      sendBtn.disabled = true;
+      cooldownTimer.innerText = `Please wait before sending another message. Time left: ${formatTime(TWO_DAYS - diff)}`;
+    } else {
+      sendBtn.disabled = false;
+      cooldownTimer.innerText = "";
+    }
+  }
+
+  function showNotification(message, color = 'orange') {
+    notification.innerText = message;
+    notification.style.color = color;
+    notification.style.display = 'block';
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 5000);
+  }
+
+  function showSuccess() {
+    formSection.style.display = "none";
+    successMessage.style.display = "block";
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const lastSent = localStorage.getItem("lastSupportSent");
+    const now = Date.now();
+
+    if (lastSent && now - Number(lastSent) < TWO_DAYS) {
+      showNotification(`Please wait. Time left: ${formatTime(TWO_DAYS - (now - Number(lastSent)))}`, 'red');
+      return;
+    }
+
+    loader.style.display = "block";
+    sendBtn.disabled = true;
+
+    emailjs.send("service_y4avu89", "template_jpjmkuk", {
+      to_email: "jphood112@gmail.com", // Force sending always to your email
+      from_name: document.getElementById("name").value,
+      reply_to: document.getElementById("email").value,
+      message: document.getElementById("message").value
+    })
+    .then(function(response) {
+      loader.style.display = "none";
+      localStorage.setItem("lastSupportSent", now.toString());
+      showSuccess();
+    }, function(error) {
+      loader.style.display = "none";
+      sendBtn.disabled = false;
+      showNotification("Failed to send. Please try again later.", 'red');
+    });
+  });
+
+  setInterval(updateCooldown, 1000);
+</script>
+
+
+</body>
+</html>
