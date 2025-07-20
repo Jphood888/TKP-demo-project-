@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Julian Last Request</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #000;
+      background-image: url('data:image/png;base64,aHR0cHM6Ly9vZC5say9kL056ZGZOakV5TmpNM05qZGYvZjQ2YzRlYTMtMmQyNy00ZWI4LTkxNWItNjgwMGQ5ZDQ1MWFjLnBuZw');
+      
+      background-size: 180px;
+      background-position: center;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .nav-section {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .nav-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .nav-buttons button, #btn {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      border: 1px solid #333;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-buttons button:hover, #btn:hover {
+      background-color: rgba(30, 30, 30, 0.85);
+    }
+
+    #effect {
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 30px 20px;
+      width: 90%;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 0 30px rgba(255, 255, 102, 0.2);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .typing-text {
+      font-size: 1.5em;
+      font-weight: 700;
+      color: #fff700;
+      text-shadow: 0 0 10px #fff700, 0 0 20px #fff70080;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid #fff700;
+      animation: typing 4s steps(30, end), blink 0.8s step-end infinite;
+      text-align: center;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    #closeBtn {
+      margin-top: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #999;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #closeBtn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .remember-container {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .remember-container input {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      width: 80%;
+      max-width: 300px;
+      margin-bottom: 10px;
+    }
+
+    .remember-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #00b300;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .remember-container button:hover {
+      background: #009900;
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bg-music" loop>
+    <source src="https://od.lk/d/NzdfNjEyNzA3NzBf/speedy-sport-action-background-music-vlog-289871.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="nav-section">
+    <h2>
+      <button id="btn"><i class="fas fa-info-circle"></i></button>
+      About
+    </h2>
+
+    <div class="nav-buttons">
+      <button onclick="location.href='go:schoolab'">
+        <i class="fas fa-school"></i> About School 
+      </button>
+      <button onclick="location.href='go:creatorab'">
+        <i class="fas fa-user-astronaut"></i> About Creator 
+      </button>
+      <button onclick="location.href='go:adminab'">
+        <i class="fas fa-users-cog"></i> About Admin 
+      </button>
+      <button onclick="location.href='go:appab'">
+        <i class="fas fa-mobile-alt"></i> About App
+      </button>
+    </div>
+  </div>
+
+  <!-- Hidden Effect Section -->
+  <div id="effect">
+    <div id="text" class="typing-text">Julian Last Request</div>
+
+    <div class="remember-container">
+      <h3>Remember Me</h3>
+      <input id="nameInput" type="text" placeholder="Enter your name"/>
+      <br/>
+      <button onclick="sendWhatsApp()">Send to WhatsApp</button>
+    </div>
+
+    <button id="closeBtn">Close</button>
+  </div>
+
+  <script>
+    let tapCount = 0;
+    let holdTimeout;
+    const button = document.getElementById('btn');
+    const effect = document.getElementById('effect');
+    const music = document.getElementById('bg-music');
+    const closeBtn = document.getElementById('closeBtn');
+
+    button.addEventListener('click', () => {
+      tapCount++;
+      if (tapCount > 5) tapCount = 1;
+    });
+
+    button.addEventListener('touchstart', () => {
+      if (tapCount === 5) {
+        holdTimeout = setTimeout(() => {
+          effect.style.display = 'flex';
+          music.play();
+        }, 800);
+      }
+    });
+
+    button.addEventListener('touchend', () => {
+      clearTimeout(holdTimeout);
+    });
+
+    closeBtn.addEventListener('click', () => {
+      effect.style.display = 'none';
+      music.pause();
+      music.currentTime = 0;
+      tapCount = 0;
+    });
+
+    function sendWhatsApp() {
+      const name = document.getElementById('nameInput').value.trim();
+      if (name) {
+        const message = `Hi, ${name} remembered you from TKP.`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappLink = `https://wa.me/2348087395751?text=${encodedMessage}`;
+        window.open(whatsappLink, '_blank');
+      } else {
+        alert("Please enter your name.");
+      }
+    }
+  </script>
+</body>
+</html>
