@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Julian Prosper Pearse</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-section {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 30px 20px;
+      background-color: #111;
+      border: 1px solid #444;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+    }
+
+    .section-title {
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .section-title i {
+      margin-right: 10px;
+    }
+
+    .image-container {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      border-radius: 10px;
+      border: 1px solid #666;
+    }
+
+    .content {
+      font-size: 16.5px;
+      line-height: 1.8;
+      color: #ddd;
+    }
+
+    blockquote {
+      border-left: 4px solid #555;
+      margin: 30px 0;
+      padding-left: 15px;
+      font-style: italic;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+<section>
+<div inert>
+  <div class="main-section">
+    <h2 class="section-title"><i class="fas fa-user-graduate"></i> About Julian Prosper Pearse (Jphood)</h2>
+
+    <div class="image-container">
+      <!-- Replace this link with actual image -->
+      <img src="PUT-YOUR-IMAGE-LINK-HERE.jpg" alt="Julian Prosper Pearse" />
+    </div>
+
+    <div class="content">
+      <p>
+        Julian Prosper Pearse, widely recognized by his stage name <strong>Jphood</strong>, is a young innovator, actor, and musical artist who stands out for his creativity and vision. At just <strong>20 years old</strong>, during his final ND2 year, he launched the official mobile app for TIMEON KAIROS Polytechnic Institute as his school project — a bold and extraordinary move that speaks volumes about his ambition.
+      </p>
+
+      <p>
+        Julian is not just a tech enthusiast — he's a proud student of the institution, with a heart for legacy. While others focused on theoretical projects, Julian decided to create something that would have a real and lasting impact: a functional app that connects students, showcases updates, and improves the school’s digital presence.
+      </p>
+
+      <p>
+        Outside the classroom, Julian is deeply immersed in the creative arts. As an <strong>actor</strong> and musical <strong>artist</strong>, Jphood tells stories, performs music that resonates with youth, and brings his raw talent into every song and performance. He balances entertainment with a message, proving himself as more than just a student — but a full-blown creative force.
+      </p>
+
+      <p>
+        His work reflects dedication, intelligence, and a desire to make his school proud. The TIMEON KAIROS App is more than a project — it’s a gift to the students, a solution to school challenges, and a record of what’s possible when passion meets action.
+      </p>
+
+      <p>
+        From stage lights to coding nights, from music to innovation, Julian is setting a pace for others to follow.
+      </p>
+
+      <blockquote>
+        “Julian is one of the few student developers redefining what it means to be a creative in Nigeria — blending tech, art, and school pride. His work on the TIMEON KAIROS app proves that you can be young, talented, and revolutionary all at once.”
+        <br><br>– Internet Biography Excerpt
+      </blockquote>
+    </div>
+  </div>
+</section>
+</body>
+</html>
