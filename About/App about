@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About TIMEON KAIROS App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-section {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 30px 20px;
+      background-color: #111;
+      border: 1px solid #444;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+    }
+
+    .section-title {
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .section-title i {
+      margin-right: 10px;
+    }
+
+    .content {
+      font-size: 16.5px;
+      line-height: 1.8;
+      color: #ddd;
+    }
+
+    blockquote {
+      border-left: 4px solid #555;
+      margin: 30px 0;
+      padding-left: 15px;
+      font-style: italic;
+      color: #aaa;
+    }
+
+    .footer {
+      text-align: center;
+      margin: 20px auto;
+      padding: 8px 16px;
+      max-width: 250px;
+      background: linear-gradient(135deg, #8B4513, #DAA520);
+      border-radius: 20px;
+      transform: rotate(-2deg);
+      box-shadow: 0 3px 8px rgba(139, 69, 19, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .footer:hover {
+      transform: rotate(0deg) scale(1.05);
+    }
+
+    .footer a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .footer a:hover {
+      color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-section">
+    <h2 class="section-title"><i class="fas fa-mobile-alt"></i> About the TIMEON KAIROS App</h2>
+
+    <div class="content">
+      <p>
+        The <strong>TIMEON KAIROS App</strong> was officially created in 2025 by a visionary student of TIMEON KAIROS Polytechnic Institute. Designed during the final stages of his ND2 academic journey, the app was developed not as a typical school project, but as a full-scale platform to digitally transform the school's environment.
+      </p>
+
+      <p>
+        Built with innovation in mind, the app serves as a <strong>central hub for student interaction, real-time updates, academic resources, and campus-wide connectivity</strong>. It bridges the gap between departments, students, and administrative units with smooth digital communication.
+      </p>
+
+      <p>
+        At its core, the app was developed to support:
+        <ul>
+          <li><strong>Student-to-student interaction</strong> via built-in chat and profile features</li>
+          <li><strong>Access to results, timetables, and events</strong> via seamless redirect systems</li>
+          <li><strong>Support for real-time updates</strong> from school operatives</li>
+          <li><strong>In-app redirects</strong> to institutional services and tools</li>
+          <li><strong>Connection to verified academic and social platforms</strong> associated with the school</li>
+        </ul>
+      </p>
+
+      <p>
+        The TIMEON KAIROS App also functions as an educational toolkit, promoting **intellectual growth**, **networking among students**, and **better access to institutional resources**. Its sleek interface, dark-themed UI, and advanced features reflect the same excellence the institution represents.
+      </p>
+
+      <p>
+        Whether you are checking your academic results, connecting with fellow students, receiving school-wide alerts, or simply exploring campus life, this app is tailored to make your experience smarter, faster, and more connected.
+      </p>
+
+      <blockquote>
+        "This is not just an app – it's a legacy. A smart move by a brilliant student who chose to give TIMEON KAIROS Polytechnic something timeless: connection, creativity, and convenience in the palm of every student's hand."
+        <br><br>– Editorial Note, Campus Tech Digest
+      </blockquote>
+
+      <p>
+        From interaction to innovation, from school needs to student voices — the TIMEON KAIROS App was made for all, to inspire all.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="go:TCR">app modifications and files</a>
+  </div>
+
+</body>
+</html>
