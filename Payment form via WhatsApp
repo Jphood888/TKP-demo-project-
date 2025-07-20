@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Payment Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f2f7fb;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .order-container {
+      background: #ffffff;
+      padding: 25px 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #222;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #00bcd4;
+      box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.2);
+      outline: none;
+    }
+
+    .checkbox-group {
+      margin: 16px 0;
+    }
+
+    .checkbox-group strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: #444;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      margin: 6px 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .checkbox-group input[type="checkbox"],
+    .checkbox-group input[type="radio"] {
+      width: auto;
+      margin-right: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: 500;
+    }
+
+    .order-btn {
+      background: #00bcd4;
+      color: #fff;
+    }
+
+    .order-btn:hover {
+      background: #00a3bb;
+    }
+
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+      display: none;
+    }
+
+    .whatsapp-btn:hover {
+      background: #1ebd5a;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: -5px;
+      margin-bottom: 8px;
+    }
+
+    .notify {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #323232;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-size: 14px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    .notify.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .watermark {
+      position: fixed;
+      font-size: 0.7rem;
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @media (max-width: 600px) {
+      .order-container {
+        padding: 20px 15px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="order-container">
+    <h2>Student Payment Form</h2>
+
+    <input type="text" id="name" placeholder="Full Name" required>
+    <div id="nameError" class="error"></div>
+
+    <select id="department" required>
+      <option value="">Select Department</option>
+      <option value="Computer Science">Computer Science</option>
+      <option value="Computer Engineering">Computer Engineering</option>
+      <option value="Electrical Engineering">Electrical Engineering</option>
+      <option value="Science Laboratory Technician">Science Laboratory Technician</option>
+      <option value="Business Administration">Business Administration</option>
+      <option value="Public Administration">Public Administration</option>
+      <option value="Mass Communication">Mass Communication</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <div class="checkbox-group">
+      <strong>Select Semester:</strong>
+      <label><input type="radio" name="semester" value="first" onclick="handleSemesterChange()"> First Semester</label>
+      <label><input type="radio" name="semester" value="second" onclick="handleSemesterChange()"> Second Semester</label>
+    </div>
+
+    <div class="checkbox-group">
+      <strong>Select what you're paying for:</strong>
+      <label><input type="checkbox" name="payment" value="Tuition Fees" id="tuition" onclick="handleTuitionChange()"> Tuition Fees</label>
+      <label><input type="checkbox" name="payment" value="Exam" id="exam"> Exam</label>
+      <label><input type="checkbox" name="payment" value="ID Card" id="idcard"> ID Card</label>
+      <label><input type="checkbox" name="payment" value="Library" id="library"> Library</label>
+      <label><input type="checkbox" name="payment" value="Hostel"> Hostel</label>
+    </div>
+
+    <input type="number" id="amount" placeholder="Total budget Amount (₦)" min="0">
+
+    <textarea id="description" rows="3" placeholder="Additional Details (Optional)"></textarea>
+
+    <select id="receiver">
+      <option value="2347032701606">Bursar</option>
+      <option value="2348139363429">Registrar</option>
+      <option value="2348146365089">Other Administratives</option>
+    </select>
+
+    <button class="order-btn" onclick="placeOrder()">Generate WhatsApp Message</button>
+    <button class="whatsapp-btn" id="whatsappBtn" onclick="sendToWhatsApp()">Send via WhatsApp</button>
+  </div>
+
+  <div class="notify" id="notification"></div>
+  <div class="watermark">TKP App by Julian Pearse</div>
+
+  <script>
+    function showNotification(message) {
+      const notify = document.getElementById("notification");
+      notify.textContent = message;
+      notify.classList.add("show");
+      setTimeout(() => notify.classList.remove("show"), 3000);
+    }
+
+    function isValidName(name) {
+      return /^[a-zA-Z\s]{3,}$/.test(name);
+    }
+
+    function handleSemesterChange() {
+      const semester = document.querySelector('input[name="semester"]:checked')?.value;
+      const tuition = document.getElementById("tuition");
+      const exam = document.getElementById("exam");
+      const idcard = document.getElementById("idcard");
+      const library = document.getElementById("library");
+
+      [exam, idcard, library].forEach(el => {
+        el.checked = false;
+        el.disabled = false;
+      });
+
+      tuition.checked = false;
+
+      if (semester === "first") {
+        tuition.onclick = function () {
+          if (this.checked) {
+            exam.checked = true;
+            idcard.checked = true;
+            library.checked = true;
+            exam.disabled = true;
+            idcard.disabled = true;
+            library.disabled = true;
+          } else {
+            exam.checked = false;
+            idcard.checked = false;
+            library.checked = false;
+            exam.disabled = false;
+            idcard.disabled = false;
+            library.disabled = false;
+          }
+        };
+      } else {
+        tuition.onclick = null;
+      }
+    }
+
+    function placeOrder() {
+      const name = document.getElementById("name").value.trim();
+      const nameError = document.getElementById("nameError");
+      const department = document.getElementById("department").value;
+      const selected = document.querySelectorAll('input[name="payment"]:checked');
+      const amount = document.getElementById("amount").value.trim();
+
+      nameError.innerText = "";
+
+      if (!isValidName(name)) {
+        nameError.innerText = "Enter a valid full name (at least 2 words).";
+        return;
+      }
+
+      if (!department) {
+        showNotification("Please select your department.");
+        return;
+      }
+
+      if (selected.length === 0) {
+        showNotification("Please select at least one payment option.");
+        return;
+      }
+
+      if (!amount || isNaN(amount) || amount <= 0) {
+        showNotification("Please enter a valid amount.");
+        return;
+      }
+
+      const items = Array.from(selected).map(i => i.value).join(", ");
+      localStorage.setItem("studentName", name);
+      localStorage.setItem("studentDept", department);
+      localStorage.setItem("paymentItems", items);
+      localStorage.setItem("amountPaid", amount);
+
+      showNotification("WhatsApp message generated. Tap the green button to send.");
+      document.getElementById("whatsappBtn").style.display = "block";
+    }
+
+    function sendToWhatsApp() {
+      const name = localStorage.getItem("studentName");
+      const department = localStorage.getItem("studentDept");
+      const items = localStorage.getItem("paymentItems");
+      const amount = localStorage.getItem("amountPaid");
+      const description = document.getElementById("description").value.trim();
+      const receiver = document.getElementById("receiver").value;
+
+      let message = `Hello, I am ${name}.\n\nDepartment: ${department}\nI want to pay for: ${items}\nAmount: ₦${amount}`;
+      if (description !== "") {
+        message += `\n\nNote: ${description}`;
+      }
+
+      const whatsappURL = `https://wa.me/${receiver}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappURL, "_blank");
+    }
+  </script>
+</body>
+</html>
