@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TIMEON KAIROS Polytechnic Student Results</title>
+  <style>
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #004080;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    main {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    select {
+      padding: 12px 18px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      color: #333;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    @media (max-width: 600px) {
+      select {
+        width: 90%;
+      }
+
+      iframe {
+        height: 400px;
+      }
+    }
+
+    #passwordPrompt {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #passwordPrompt div {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    #passwordPrompt input {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 80%;
+    }
+
+    #passwordPrompt button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    #notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #f44336;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      font-size: 14px;
+      display: none;
+      z-index: 99999;
+    }
+
+    footer {
+      text-align: center;
+      padding: 11px;
+      background: #000;
+      font-size: 10px;
+      color: #aaa;
+    }
+
+    footer a {
+      color: #e74c3c;
+      transition: color 0.3s;
+    }
+
+   
+
+    footer a:hover {
+      color: #9b59b6;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>TIMEON KAIROS Polytechnic Student Results</h2>
+    <p style="font-size: 14px; margin-top: 5px;">Check your departmental result below</p>
+  </header>
+
+  <main>
+    <label for="departmentSelect">Select your department:</label>
+    <select id="departmentSelect" onchange="loadResults()" disabled>
+      <option value="">-- Select Department --</option>
+      <option value="slt">Science Laboratory Technician (SLT)</option>
+      <option value="comsci">Computer Science (COM SCI)</option>
+      <option value="comeng">Computer Engineering</option>
+      <option value="masscom">Mass Communication</option>
+      <option value="busadmin">Business Administration</option>
+      <option value="pubadmin">Public Administration</option>
+      <option value="electeng">Electrical Engineering</option>
+    </select>
+
+    <iframe id="resultsFrame" src=""></iframe>
+  </main>
+
+  <div id="passwordPrompt">
+    <div>
+      <h3>Enter Access Key</h3>
+      <input type="password" id="accessKeyInput" placeholder="Enter your access key">
+      <br>
+      <button onclick="verifyAccessKey()">Submit</button>
+    </div>
+  </div>
+
+  <div id="notification"></div>
+
+  <footer>
+    <section>© <span id="yearDisplay"></span> TKP Student Results. Crafted by <a href="go:creatorab">Julian Prosper Pearse</a></section>
+  </footer>
+
+  <script>
+    const departmentLinks = {
+      slt: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSomeOtherID_SLT/pubhtml?widget=true&headers=false",
+      comsci: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSomeOtherID_COMSCI/pubhtml?widget=true&headers=false",
+      comeng: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSomeOtherID_COMENG/pubhtml?widget=true&headers=false",
+      masscom: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSomeOtherID_MASSCOM/pubhtml?widget=true&headers=false",
+      busadmin: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSomeOtherID_BUSADMIN/pubhtml?widget=true&headers=false",
+      pubadmin: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSomeOtherID_PUBADMIN/pubhtml?widget=true&headers=false",
+      electeng: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSomeOtherID_ELECTENG/pubhtml?widget=true&headers=false"
+    };
+
+    const accessKeys = {
+      "SLT2025": "slt",
+      "COMSCI2025": "comsci",
+      "COMENG2025": "comeng",
+      "MASSCOM2025": "masscom",
+      "BUSADMIN2025": "busadmin",
+      "PUBADMIN2025": "pubadmin",
+      "ELECTENG2025": "electeng"
+    };
+
+    function verifyAccessKey() {
+      const inputKey = document.getElementById("accessKeyInput").value.trim();
+      const department = accessKeys[inputKey];
+
+      if (department) {
+        document.getElementById("passwordPrompt").style.display = "none";
+        const select = document.getElementById("departmentSelect");
+        select.value = department;
+        select.disabled = true;
+        loadResults();
+      } else {
+        showNotification("Invalid access key. Please try again.");
+      }
+    }
+
+    function loadResults() {
+      const dept = document.getElementById("departmentSelect").value;
+      const frame = document.getElementById("resultsFrame");
+
+      if (departmentLinks[dept]) {
+        frame.src = departmentLinks[dept];
+      } else {
+        frame.src = "";
+      }
+    }
+
+    function showNotification(message) {
+      const notification = document.getElementById("notification");
+      notification.textContent = message;
+      notification.style.display = "block";
+      setTimeout(() => {
+        notification.style.display = "none";
+      }, 4000);
+    }
+
+    // Set current year dynamically
+    document.getElementById("yearDisplay").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
