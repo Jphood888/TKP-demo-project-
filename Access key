@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Access System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+body {
+  margin: 0;
+  padding: 0;
+  background: #f2f2f2;
+  font-family: 'Poppins', sans-serif;
+  transition: opacity 0.5s;
+  display: none;
+  opacity: 0;
+}
+
+/* Loader */
+#loader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
+  color: #0f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  z-index: 9999;
+  animation: fadeIn 0.5s;
+}
+
+#loader i {
+  animation: spin 2s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Password Screen */
+#passwordScreen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #fff;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: opacity 0.5s;
+}
+
+#passwordScreen input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #003366;
+  border-radius: 8px;
+  margin: 10px;
+}
+
+#passwordScreen input.locked {
+  background: #ddd;
+}
+
+#passwordScreen button {
+  padding: 10px 20px;
+  background: #003366;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#passwordScreen button:hover {
+  background: #0055aa;
+}
+
+.shake {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Confirmation Access Loader */
+#confirmAccess {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
+  color: #0f0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+#confirmAccess i {
+  animation: spin 2s linear infinite;
+  margin-bottom: 10px;
+}
+
+/* Success Message */
+#successMessage {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
+  color: #0f0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+#successMessage i {
+  font-size: 4rem;
+  margin-bottom: 10px;
+}
+
+/* Main Content */
+    #mainContent {
+      display: none;
+    }
+    .header {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      color: #003366;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .dept-card {
+      background: #ffffff;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s;
+    }
+    .dept-card:hover {
+      transform: translateY(-5px);
+    }
+    .dept-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #004488;
+      margin-bottom: 0.5rem;
+    }
+    .info-item {
+      margin: 0.4rem 0;
+      font-size: 0.95rem;
+      color: #333;
+    }
+    .info-label {
+      font-weight: bold;
+      color: #000;
+    }
+
+/* Lockout Timer */
+#lockoutTimer {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Custom Popup */
+#customPopup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 320px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.popup-content h2 {
+  margin-top: 0;
+  color: #003366;
+}
+
+.popup-content p {
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.popup-buttons button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #003366;
+  color: white;
+  transition: background 0.3s;
+}
+
+.popup-buttons button:hover {
+  background: #0055aa;
+}
+
+.fadeOut {
+  animation: fadeOut 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+.watermark {
+      position: fixed;
+      bottom: 5px;
+      right: 10px;
+      font-size: 0.75rem;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+</style>
+
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <i class="fas fa-spinner"></i>
+  Loading...
+</div>
+
+<!-- Password Screen -->
+<div id="passwordScreen">
+  <input type="password" id="passwordInput" placeholder="Enter Password" onkeydown="if(event.key==='Enter') checkPassword()">
+  <button onclick="checkPassword()">Unlock</button>
+  <div id="errorMsg"></div>
+  <div id="lockoutTimer"></div>
+</div>
+
+<!-- Confirm Access Loader -->
+<div id="confirmAccess">
+  <i class="fas fa-spinner"></i>
+  Confirming Access...
+</div>
+
+<!-- Success Message -->
+<div id="successMessage">
+  <i class="fas fa-check-circle"></i><br><br>
+  You have been granted access to the keys/codes.
+</div>
+
+<!-- Main Content -->
+  <div id="mainContent">
+  
+  <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">General/Media Password</div>
+        <div class="info-item"><span class="info-label">Other password:</span> TKPOFFICIAL</div>
+       
+      </div>
+    <div class="header">Department Access Code Information</div>
+
+    <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Computer Science</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> CS</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+    
+    <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Computer Engineering</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> CE</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+      
+      <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Accountancy</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> A</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+    
+    <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Electrical Engineering</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> CE</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+      
+      <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Banking & Finance Operation</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> BFO</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+      
+      
+      
+      <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Economics</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> E</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+      
+      
+      <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Marketing</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> M</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+      
+      
+      <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Business Admimistration</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> BA</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+      
+      
+      
+      <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Public Administration</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> PA</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+      
+      <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Science Laboratory Technician </div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> SLT</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+      
+      <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Public Health(nursing)</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> PH</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+      
+      
+     <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Educational Management</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> EM</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+      
+      <div class="card-grid">
+      <div class="dept-card">
+        <div class="dept-name">Mass Communication</div>
+        <div class="info-item"><span class="info-label">Timetable Code:</span> MC</div>
+        <div class="info-item"><span class="info-label">Payment Code:</span> ****</div>
+        <div class="info-item"><span class="info-label">Result Key:</span> *******</div>
+      </div>
+      
+      
+    <another content>
+    
+    
+    
+</div>
+<div class="watermark">TKP App by Julian Pearse</div>
+  </div>
+
+<script>
+let attempts = 0;
+let lockoutTime = 0;
+let lockoutTimer;
+const passwordCorrect = 'TKPOFFICIAL';
+
+function startLockout(duration) {
+  lockoutTime = duration;
+  localStorage.setItem('lockoutTime', lockoutTime);
+  localStorage.setItem('lockoutStart', Date.now());
+  updateLockoutDisplay();
+  document.getElementById('passwordInput').disabled = true;
+  document.getElementById('passwordInput').classList.add('locked');
+
+  lockoutTimer = setInterval(() => {
+    lockoutTime--;
+    localStorage.setItem('lockoutTime', lockoutTime);
+    updateLockoutDisplay();
+    if (lockoutTime <= 0) {
+      clearInterval(lockoutTimer);
+      localStorage.removeItem('lockoutTime');
+      localStorage.removeItem('lockoutStart');
+      document.getElementById('passwordInput').disabled = false;
+      document.getElementById('passwordInput').classList.remove('locked');
+      document.getElementById('lockoutTimer').textContent = "";
+      attempts = 0;
+    }
+  }, 1000);
+}
+
+function updateLockoutDisplay() {
+  const minutes = Math.floor(lockoutTime / 60);
+  const seconds = lockoutTime % 60;
+  document.getElementById('lockoutTimer').textContent = `Locked. Try again in ${minutes}m ${seconds}s`;
+}
+
+function checkPassword() {
+  const input = document.getElementById('passwordInput');
+  const errorMsg = document.getElementById('errorMsg');
+
+  if (lockoutTime > 0) return;
+
+  if (input.value.trim() === passwordCorrect) {
+    localStorage.setItem('tkp_access', 'granted');
+    successAnimation();
+  } else {
+    attempts++;
+    input.classList.add('shake');
+    setTimeout(() => input.classList.remove('shake'), 500);
+
+    if (attempts === 4) {
+      startLockout(60);
+    } else if (attempts === 8) {
+      startLockout(1800);
+    } else if (attempts === 9) {
+      startLockout(2 * 24 * 3600);
+    }
+    errorMsg.textContent = `Incorrect password. Attempt ${attempts}.`;
+  }
+}
+
+function successAnimation() {
+  document.getElementById('passwordScreen').style.opacity = '0';
+  setTimeout(() => {
+    document.getElementById('passwordScreen').style.display = 'none';
+    document.getElementById('confirmAccess').style.display = 'flex';
+    setTimeout(() => {
+      document.getElementById('confirmAccess').style.opacity = '1';
+    }, 100);
+  }, 600);
+
+  setTimeout(() => {
+    document.getElementById('confirmAccess').style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('confirmAccess').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'flex';
+      setTimeout(() => {
+        document.getElementById('successMessage').style.opacity = '1';
+      }, 100);
+
+      setTimeout(() => {
+        document.getElementById('successMessage').style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('successMessage').style.display = 'none';
+          document.getElementById('mainContent').style.display = 'block';
+          setTimeout(() => {
+            document.getElementById('mainContent').style.opacity = '1';
+          }, 100);
+
+          openStayLoggedPopup();
+        }, 600);
+      }, 3000);
+    }, 600);
+  }, 3000);
+}
+
+function openStayLoggedPopup() {
+  const popup = document.createElement('div');
+  popup.id = 'customPopup';
+  popup.innerHTML = `
+    <div class="popup-content">
+      <h2>Stay Logged In?</h2>
+      <p>Do you want to stay logged in and skip password next time?</p>
+      <div class="popup-buttons">
+        <button id="popupYes">Yes</button>
+        <button id="popupNo">No</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(popup);
+
+  document.getElementById('popupYes').onclick = function() {
+    closePopup();
+  };
+  document.getElementById('popupNo').onclick = function() {
+    localStorage.removeItem('tkp_access');
+    closePopup();
+  };
+}
+
+function closePopup() {
+  const popup = document.getElementById('customPopup');
+  if (popup) {
+    popup.classList.add('fadeOut');
+    setTimeout(() => {
+      popup.remove();
+    }, 300);
+  }
+}
+
+window.onload = function() {
+  setTimeout(() => {
+    document.getElementById('loader').style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('loader').style.display = 'none';
+      document.body.style.display = 'block';
+      document.body.style.opacity = '1';
+
+      if (localStorage.getItem('tkp_access') === 'granted') {
+        document.getElementById('mainContent').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('mainContent').style.opacity = '1';
+        }, 100);
+      } else {
+        document.getElementById('passwordScreen').style.display = 'flex';
+        setTimeout(() => {
+          document.getElementById('passwordScreen').style.opacity = '1';
+        }, 100);
+
+        // Restore lockout state if needed
+        const savedLockoutTime = parseInt(localStorage.getItem('lockoutTime'), 10);
+        const lockoutStart = parseInt(localStorage.getItem('lockoutStart'), 10);
+        if (savedLockoutTime && lockoutStart) {
+          const elapsed = Math.floor((Date.now() - lockoutStart) / 1000);
+          const remaining = savedLockoutTime - elapsed;
+          if (remaining > 0) {
+            startLockout(remaining);
+          } else {
+            localStorage.removeItem('lockoutTime');
+            localStorage.removeItem('lockoutStart');
+          }
+        }
+      }
+    }, 800);
+  }, 1500);
+};
+</script>
+
+</body>
+</html>
