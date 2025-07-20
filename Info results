@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checking Your Results</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .section {
+      max-width: 850px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .section h1 {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 30px;
+      color: #f5f5f5;
+    }
+
+    .step {
+      background-color: #111;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .step i {
+      font-size: 24px;
+      margin-right: 15px;
+      color: #00acee;
+      min-width: 30px;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-content h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .step ol {
+      margin: 0;
+      padding-left: 20px;
+      color: #ccc;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .step ol li {
+      margin-bottom: 5px;
+    }
+
+    .notes {
+      background-color: #111;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .notes i {
+      font-size: 24px;
+      margin-right: 15px;
+      color: #ffbf00;
+      min-width: 30px;
+    }
+
+    .notes-content {
+      flex: 1;
+    }
+
+    .notes-content strong {
+      color: #fff;
+      font-size: 18px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .notes-content p {
+      margin: 0;
+      color: #ccc;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      margin-top: 30px;
+    }
+
+    .watermark {
+      position: fixed;
+      font-size: 0.7rem;
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="section">
+    <h1><i class="fas fa-file-alt"></i> Checking Your Results</h1>
+
+    <div class="step">
+      <i class="fas fa-key"></i>
+      <div class="step-content">
+        <h3>Step 1: Obtain Your Unique Key Code</h3>
+        <ol>
+          <li>Contact the school administration to obtain your personal key code.</li>
+          <li>Ensure you receive the correct code, as it's unique to you.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="step">
+      <i class="fas fa-sign-in-alt"></i>
+      <div class="step-content">
+        <h3>Step 2: Log In to the Results Portal</h3>
+        <ol>
+          <li>Open the school's app or website and navigate to the "Results" section.</li>
+          <li>Click on the "Check Results" or "View Results" option.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="step">
+      <i class="fas fa-lock"></i>
+      <div class="step-content">
+        <h3>Step 3: Enter Your Key Code</h3>
+        <ol>
+          <li>Carefully enter your unique key code in the designated field.</li>
+          <li>Double-check that the code is accurate to avoid any access issues.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="step">
+      <i class="fas fa-eye"></i>
+      <div class="step-content">
+        <h3>Step 4: Access Your Results</h3>
+        <ol>
+          <li>Once your key code is validated, you'll be able to view your results.</li>
+          <li>Review your grades, scores, and any additional feedback provided by your instructors.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="notes">
+      <i class="fas fa-exclamation-circle"></i>
+      <div class="notes-content">
+        <strong>Important Notes:</strong>
+        <p>- <strong>Confidentiality:</strong> Keep your key code secure and confidential to prevent unauthorized access.<br>
+        - <strong>Accuracy:</strong> Ensure you enter the key code correctly to avoid errors or delays.</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      For help, please contact the school administration.
+    </div>
+  </div>
+
+  <div class="watermark">TKP App by Julian Pearse</div>
+  <div class="watermark" style="left: 10px; top: 10px;">TKP App by Julian Pearse</div>
+</body>
+</html>
