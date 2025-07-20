@@ -3,7 +3,7 @@ A simple review of the apps modification
 
 
 
- The reference is used to link one section to another.
+ *The reference is used to link one section to another.*
 · For example, if you put as reference A then you can put the following code in another section:
   <a href="go:A">Text</a>
   and clicking on Text the A section will be opened.
@@ -38,7 +38,7 @@ Section References
 23. How to Make Better Results: `<a id="bresult"></a>`
 24. National Diploma Requirement: `<a id="ndp"></a>`
 25. TKP Project or Portal: `<a id="board"></a>`
-26. *TKP Code Review*: `<a id="tcr"></a>`
+26. TKP Code Review: `<a id="tcr"></a>`
 
 Linking to Sections
 To link to these sections from another part of the page, you can use the following code:
@@ -74,7 +74,7 @@ To link to these sections from another part of the page, you can use the followi
 
 
 
-(HTML demonstration)
+*(HTML demonstration)*
 
 <!-- Sections -->
 <div id="home">Home Section</div>
