@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Administration</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-section {
+      max-width: 980px;
+      margin: 30px auto;
+      padding: 30px 20px;
+      background-color: #111;
+      border: 1px solid #444;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+    }
+
+    .section-title {
+      font-size: 30px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title i {
+      margin-right: 10px;
+    }
+
+    .profile {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 50px;
+      align-items: flex-start;
+    }
+
+    .profile img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #0af;
+    }
+
+    .profile-content {
+      flex: 1;
+    }
+
+    .profile-content h3 {
+      margin: 0;
+      font-size: 22px;
+      color: #0af;
+    }
+
+    .profile-content p {
+      font-size: 16.5px;
+      line-height: 1.9;
+      color: #ddd;
+      margin-top: 10px;
+    }
+
+    blockquote {
+      border-left: 4px solid #555;
+      margin: 30px 0;
+      padding-left: 15px;
+      font-style: italic;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+<section>
+<div inert>
+  <div class="main-section">
+    <h2 class="section-title"><i class="fas fa-people-roof"></i> About the Administration</h2>
+
+    <div class="profile">
+      <img src="https://od.lk/d/NzdfNjEzNTI3ODJf/dev.tkevi_.png" alt="Rev. Dr. Titus K. Oyeyemi"/>
+      <div class="profile-content">
+        <h3>President – Rev. Dr. Titus K. Oyeyemi</h3>
+        <p>
+          A true visionary and the spiritual force behind the institution, Rev. Dr. Titus K. Oyeyemi has led with wisdom, passion, and an unshakable commitment to faith-driven education. His daily presence is more than administrative; it is inspirational. He doesn’t just make decisions — he nurtures destinies. From strategic planning to pastoral care, he speaks with the conviction of a father and the heart of a shepherd.
+        </p>
+        <p>
+          Students describe him as a "giant in grace" and staff view him as a role model whose humility is matched only by his depth. From sunrise meetings to late-night check-ins, he remains active and intentional.
+        </p>
+      </div>
+    </div>
+
+    <div class="profile">
+      <img src="vp.jpg" alt="Mrs. Fehintola Oyeyemi"/>
+      <div class="profile-content">
+        <h3>Vice President – Mrs. Fehintola Oyeyemi</h3>
+        <p>
+          The strength and warmth behind the scenes, Mrs. Fehintola Oyeyemi is the stabilizing figure in the administration. Known for her grace, meticulousness, and deep motherly instincts, she embodies compassion and structure. From overseeing welfare to guiding team operations, she supports all branches of administration with care.
+        </p>
+      </div>
+    </div>
+
+    <div class="profile">
+      <img src="registrar.jpg" alt="Mrs. Eniola Oyeyemi Ogundipe (Mummy Beji)"/>
+      <div class="profile-content">
+        <h3>Registrar – Mrs. Eniola Oyeyemi Ogundipe </h3>
+        <p>
+          Highly educated, widely experienced, and deeply committed, Mummy Beji is the lifeline of student records, field logistics, and policy enforcement. She oversees not just the registry but also the day-to-day realities of students’ lives. Whether in the hostel, classrooms, or office corridors — her presence is consistent and effective.
+        </p>
+        <p>
+          Her documentation skills are flawless, her leadership empathetic, and her role irreplaceable.
+        </p>
+      </div>
+    </div>
+
+    
+
+    <div class="profile">
+      <img src="advisor.jpg" alt="Barr. Olutola Adeyemi"/>
+      <div class="profile-content">
+        <h3>Barr. Olutola Adeyemi</h3>
+        <p>
+          As the school’s legal compass, Barrister Olutola Adeyemi advises on policies, structures, and rights, ensuring the school operates within legal and ethical bounds. Her presence brings structure and transparency to administrative proceedings.
+        </p>
+        <p>
+          Her ability to mediate, interpret rules, and guide key decisions has helped the institution maintain order and justice in sensitive matters.
+        </p>
+      </div>
+    </div>
+
+    <div class="profile">
+      <img src="bursar.jpg" alt="Mrs. ADEOYE Adeyemi"/>
+      <div class="profile-content">
+        <h3>Bursar – Mrs. ADEOYE Adeyemi</h3>
+        <p>
+          The financial backbone of the school, Mrs. Adeoye Adeyemi handles all monetary affairs with precision, prudence, and accountability. From tuition processing to budget management, she ensures that the institution remains financially sound.
+        </p>
+        <p>
+          Her dedication, honesty, and hands-on approach have earned her the trust of parents and staff alike. Her work behind the scenes keeps the educational mission alive and sustainable.
+        </p>
+      </div>
+    </div>
+
+    <div class="profile">
+      <img src="fatimo.jpg" alt="Mrs. Fatimo"/>
+      <div class="profile-content">
+        <h3>Operations & Technical Field Coordinator – Mrs. Fatimo</h3>
+        <p>
+          A powerhouse of execution, Mrs. Fatimo handles on-the-ground operations like examination logistics, student activities, and high-level coordination during events and administrative projects.
+        </p>
+        <p>
+          She brings order to complex processes and ensures that technical operations are smooth and efficient. Whether it's a last-minute schedule change or a large exam to coordinate, she gets it done.
+        </p>
+      </div>
+    </div>
+
+    <blockquote>
+      “Each member of this administration is more than a leader — they are mentors, guardians, architects, and visionaries. Their unity is the engine that powers the entire system.”
+    </blockquote>
+
+    <p style="font-size: 16.5px; line-height: 1.9; color: #ddd;">
+      With every form signed, every record entered, every call made, and every prayer whispered — this administration breathes life into the mission of the school. Their impact is not measured in hours, but in hearts changed and futures shaped. They deserve not only respect but a legacy of honor.
+    </p>
+
+  </div></section>
+
+</body>
+</html>
