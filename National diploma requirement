@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Diploma Programmes - TKEVI</title>
+    <style>
+/* Copy Protection Styles */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(45, 45, 45, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4a4a4a;
+        }
+
+        .header h1 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #cccccc;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #2a2a2a;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #333333 0%, #1a1a1a 100%);
+        }
+
+        thead th {
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #4a4a4a;
+        }
+
+        tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        tbody tr:nth-child(odd) {
+            background: #2a2a2a;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #353535;
+        }
+
+        tbody tr:hover {
+            background: #404040;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        tbody td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #4a4a4a;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        tbody td:first-child {
+            font-weight: 600;
+            color: #ffffff;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        tbody td:nth-child(2) {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        tbody td:nth-child(3) {
+            text-align: center;
+            font-weight: 600;
+            color: #4CAF50;
+        }
+
+        .course-name {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .cutoff-mark {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-align: center;
+            display: inline-block;
+            min-width: 60px;
+        }
+
+        .requirements {
+            line-height: 1.6;
+            color: #cccccc;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+            
+            thead th,
+            tbody td {
+                padding: 12px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            thead th,
+            tbody td {
+                padding: 10px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>NATIONAL DIPLOMA PROGRAMMES</h1>
+            <p>TKEVI - Course Requirements & Admission Information</p>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>National Diploma (ND) Courses/Programmes</th>
+                        <th>Cut Off Mark</th>
+                        <th>O'Level Requirements</th>
+                        <th>UTME Requirements</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1.</td>
+                        <td class="course-name">Accountancy</td>
+                        <td><span class="cutoff-mark">100</span></td>
+                        <td class="requirements">Five (5) SSCE credit passes in English Language not Literature in English, Mathematics and any three (3) subjects from the following: Economics/Commerce, Business Methods, Principles of Accounts, Literature in English Statistics Geography Office Practice Government, Biology/Agricultural Science, History/Government.</td>
+                        <td class="requirements">Use of English, Mathematics and two (2) of Geography, Commerce, Government, Principles of Accounts and Economics.</td>
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td class="course-name">Banking and Finance</td>
+                        <td><span class="cutoff-mark">100</span></td>
+                        <td class="requirements">Five (5) SSCE credit passes in English Language not Literature in English, Mathematics and any three (3) subjects from the following: Economics/Commerce, Business Methods, Principles of Accounts, Literature in English Statistics Geography Office Practice Government, Biology/Agricultural Science, History/Government.</td>
+                        <td class="requirements">Use of English, Mathematics and any two (2) of Economics, Geography, History, Government, Commerce or Principles of Accounts.</td>
+                    </tr>
+                    <tr>
+                        <td>3.</td>
+                        <td class="course-name">Business Administration & Management</td>
+                        <td><span class="cutoff-mark">100</span></td>
+                        <td class="requirements">Five (5) SSCE credit passes in English Language not Literature in English, Mathematics and any three (3) subjects from the following: Economics/Commerce, Business Methods, Principles of Accounts, Literature in English Statistics Geography Office Practice Government, Biology/Agricultural Science, History/Government.</td>
+                        <td class="requirements">Use of English, Mathematics and two (2) of Geography, Commerce, Government, Principles of Accounts and Economics.</td>
+                    </tr>
+                    <tr>
+                        <td>4.</td>
+                        <td class="course-name">Marketing</td>
+                        <td><span class="cutoff-mark">100</span></td>
+                        <td class="requirements">Five (5) SSCE credit passes in English Language not Literature in English, Mathematics and any three (3) subjects from the following: Economics/Commerce, Business Methods, Principles of Accounts, Literature in English Statistics Geography Office Practice Government, Biology/Agricultural Science, History/Government.</td>
+                        <td class="requirements">Use of English, Mathematics and two (2) of Geography, Commerce, Government, Principles of Accounts and Economics.</td>
+                    </tr>
+                    <tr>
+                        <td>5.</td>
+                        <td class="course-name">Public Administration</td>
+                        <td><span class="cutoff-mark">100</span></td>
+                        <td class="requirements">Five (5) SSCE credit passes in English Language not Literature in English, Mathematics and any three (3) subjects from the following: Economics/Commerce, Business Methods, Principles of Accounts, Literature in English Statistics Geography Office Practice Government, Biology/Agricultural Science, History/Government.</td>
+                        <td class="requirements">Use of English, Government, History and Economics.</td>
+                    </tr>
+                    <tr>
+                        <td>6.</td>
+                        <td class="course-name">Computer Engineering</td>
+                        <td><span class="cutoff-mark">100</span></td>
+                        <td class="requirements">Five (5) SSCE credit passes in English Language, Mathematics, Physics, Chemistry and one (1) other subjects chosen from the following: Metal work Wood work Technical drawing Electronics Basic Electricity Economics/Commerce, Statistics, Computer Studies, Geography, Government/History, Further Mathematics, Auto mechanics Biology/Agricultural Science.</td>
+                        <td class="requirements">Use of English, Mathematics, Physics and Chemistry.</td>
+                    </tr>
+                    <tr>
+                        <td>7.</td>
+                        <td class="course-name">Electrical/Electronic Engineering</td>
+                        <td><span class="cutoff-mark">100</span></td>
+                        <td class="requirements">Five (5) 'O' Level credit passes in English Language, Mathematics, Physics and Chemistry and any one (1) subjects from: Biology/Agricultural Science Technical Drawing, Basic Electronics/Basic Electricity, Auto Mechanics, Metal Work, Woodwork (for Civil Engineering Tech.), Further Mathematics Geography, Economics/Commerce.</td>
+                        <td class="requirements">Use of English, Mathematics, Physics and Chemistry.</td>
+                    </tr>
+                    <tr>
+                        <td>8.</td>
+                        <td class="course-name">Computer Science</td>
+                        <td><span class="cutoff-mark">100</span></td>
+                        <td class="requirements">Five (5) SSCE credit passes in English Language, Mathematics, Physics, and two (2) other subjects chosen from the following: Data Processing Computer Studies/ICT Economics/Commerce/Marketing, Geography, Government/History, Further Mathematics, Chemistry, Biology/Agricultural Science, Typewriting.</td>
+                        <td class="requirements">Use of English, Mathematics and any two (2) of Geography, Physics, Economics or Chemistry.</td>
+                    </tr>
+                    <tr>
+                        <td>9.</td>
+                        <td class="course-name">Science Laboratory Technology</td>
+                        <td><span class="cutoff-mark">100</span></td>
+                        <td class="requirements">Five (5) SSCE credit passes in English Language, Mathematics, Physics, Chemistry and one (1) other subject from: Metal Work, Wood Work, Technical Drawing, Basic Electronics/Basic Electricity, Economics/Commerce, Statistics, Further Mathematics, Computer Studies, Geography Biology/ Agricultural Science.</td>
+                        <td class="requirements">Use of English, and any three (3) of Mathematics, Biology/Agricultural Science or Physics.</td>
+                    </tr>
+                    <tr>
+                        <td>10.</td>
+                        <td class="course-name">Mass Communication</td>
+                        <td><span class="cutoff-mark">100</span></td>
+                        <td class="requirements">Five (5) SSC credit passes in English Language, Literature in English, Mathematics and two (2) other subjects in Arts or Social Science (i.e. Government, Geography, Economics, Commerce, CRS etc.)</td>
+                        <td class="requirements">Use of English, and any three (3) subjects from Arts/Social Science/Physical Science.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
