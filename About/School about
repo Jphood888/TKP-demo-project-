@@ -1,0 +1,32 @@
+<section style="background-color:#000; color:#fff; padding: 40px 20px; font-family: 'Segoe UI', sans-serif;"> <div inert>
+  <div style="max-width: 900px; margin: auto;">
+    <h2 style="font-size: 32px; margin-bottom: 20px; text-align: center;">
+      <i class="fas fa-school"></i> About TIMEON KAIROS Polytechnic Institute
+    </h2>
+
+    <!-- Image Placeholder -->
+    <div style="text-align: center; margin-bottom: 30px;">
+      <img src="https://od.lk/d/NzdfNjEyMzQ0Nzlf/download%20%284%29.png" alt="TIMEON KAIROS Polytechnic" style="max-width: 100%; border-radius: 10px;" />
+    </div>
+
+    <!-- Article Content -->
+    <p style="font-size: 17px; line-height: 1.7;">
+      TIMEON KAIROS Polytechnic Institute is an educational institution dedicated to providing innovative and career-driven technical and vocational training for students across Nigeria and beyond. It aims to bridge the gap between theoretical knowledge and practical experience by equipping students with the tools needed to excel in today’s dynamic industries.
+    </p>
+
+    <p style="font-size: 17px; line-height: 1.7;">
+      With a focus on excellence, leadership, and innovation, TIMEON KAIROS stands out as a hub for students who are passionate about creating solutions and embracing future technology. The institution offers a variety of National Diploma (ND) programs and continues to expand its reach through new partnerships, professional mentorship, and modern learning environments.
+    </p>
+
+    <p style="font-size: 17px; line-height: 1.7;">
+      Students at TIMEON KAIROS Polytechnic enjoy a unique blend of academic learning, entrepreneurship training, and character development that prepares them for global relevance and success.
+    </p>
+
+    <!-- Internet Reference Section -->
+    <blockquote style="border-left: 5px solid #444; padding-left: 15px; margin-top: 30px; font-style: italic; color: #bbb;">
+      "TIMEON KAIROS Polytechnic Institute is recognized in Nigeria as one of the emerging private polytechnics providing hands-on, real-world skills to young professionals. Its emphasis on creativity, faith-based values, and entrepreneurship makes it a standout institution in the region."
+      <br><br>
+      —  Education Reviews & Directories
+    </blockquote>
+  </div>
+</section>
